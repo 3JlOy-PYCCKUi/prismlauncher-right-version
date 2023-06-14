@@ -15,15 +15,17 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system overlays; };
+        prismlauncher-right-version-unwrapped = pkgs.prismlauncher-unwrapped.overrideAttrs (old: {
+          patches = old.patches or [ ] ++
+            [
+              ./0001.patch
+            ];
+        });
       in
       rec {
-        packages.default = pkgs.prismlauncher.overrideAttrs (old: {
-            patches =
-              old.patches or [ ] ++
-              [
-                ./0001.patch
-              ];
-          });
+        packages.default = pkgs.prismlauncher.override {
+          prismlauncher-unwrapped = prismlauncher-right-version-unwrapped;
+        };
         defaultPackage = packages.prismlauncher-right-version;
       });
 }
