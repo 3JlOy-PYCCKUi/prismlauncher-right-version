@@ -27,11 +27,10 @@
           prismlauncher-unwrapped = prismlauncher-right-version-unwrapped;
         };
         defaultPackage = packages.prismlauncher-right-version;
-        overlays = [
-          (_: _: {
+        overlay = final: prev:
+          {
             prismlauncher-right-version = packages.default;
-          })
-        ];
+          };
       });
 }
 
