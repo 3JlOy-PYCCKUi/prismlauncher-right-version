@@ -1,0 +1,26 @@
+diff --git a/launcher/minecraft/auth/steps/MSAStep.cpp b/launcher/minecraft/auth/steps/MSAStep.cpp
+index 6fc8d468..47d72a53 100644
+--- a/launcher/minecraft/auth/steps/MSAStep.cpp
++++ b/launcher/minecraft/auth/steps/MSAStep.cpp
+@@ -140,7 +140,7 @@ void MSAStep::onOAuthActivityChanged(Katabasis::Activity activity) {
+         }
+         case Katabasis::Activity::FailedHard: {
+             emit hideVerificationUriAndCode();
+-            emit finished(AccountTaskState::STATE_FAILED_HARD, tr("Microsoft user authentication failed."));
++            emit finished(AccountTaskState::STATE_OFFLINE, tr("Microsoft user authentication ended with a network error."));
+             return;
+         }
+         default: {
+diff --git a/launcher/ui/pages/global/AccountListPage.cpp b/launcher/ui/pages/global/AccountListPage.cpp
+index 278f45c4..650159ac 100644
+--- a/launcher/ui/pages/global/AccountListPage.cpp
++++ b/launcher/ui/pages/global/AccountListPage.cpp
+@@ -188,7 +188,7 @@ void AccountListPage::on_actionAddMicrosoft_triggered()
+ 
+ void AccountListPage::on_actionAddOffline_triggered()
+ {
+-    if (!m_accounts->anyAccountIsValid()) {
++    if (0) {
+         QMessageBox::warning(
+             this,
+             tr("Error"),
