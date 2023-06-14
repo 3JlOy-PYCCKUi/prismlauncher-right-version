@@ -17,15 +17,13 @@
         pkgs = import nixpkgs { inherit system overlays; };
       in
       rec {
-        packages = {
-          prismlauncher-right-version = pkgs.prismlauncher.overrideAttrs (old: {
+        packages.default = pkgs.prismlauncher.overrideAttrs (old: {
             patches =
               old.patches or [ ] ++
               [
                 ./0001.patch
               ];
           });
-        };
         defaultPackage = packages.prismlauncher-right-version;
       });
 }
